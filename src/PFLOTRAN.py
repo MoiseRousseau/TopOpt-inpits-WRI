@@ -53,7 +53,7 @@ class PFLOTRAN:
                          "FACE_NORMAL_X": "Face Normal X Component",
                          "FACE_NORMAL_Y": "Face Normal Y Component",
                          "FACE_NORMAL_Z": "Face Normal Z Component",
-                         "FACE_CELL_CENTER_VECTOR_X": "Face Cell Vector X Component",
+                         "FACE_CELL_CENTER_VECTOR_X": "Face Cell Center X Component",
                          "FACE_CELL_CENTER_VECTOR_Y": "Face Cell Vector Y Component",
                          "FACE_CELL_CENTER_VECTOR_Z": "Face Cell Vector Z Component",
                          "LIQUID_CONDUCTIVITY" : "Liquid Conductivity",

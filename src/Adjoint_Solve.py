@@ -21,7 +21,7 @@ class Adjoint_Solve:
   def solve(self, A, b):
     #default parameter
     if self.algo == "":
-      if len(b) > 60000: self.algo = "bicgstab"
+      if len(b) > 30000: self.algo = "bicgstab"
       else: self.algo = "lu"
     #solve
     print(f"Solve adjoint equation using {self.algo}")

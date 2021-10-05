@@ -1,0 +1,165 @@
+#Description: Tracer test for determining the fracture and matrix porosity
+
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_FLOW flow
+      MODE RICHARDS
+    /
+    SENSITIVITY_ANALYSIS sensitivity
+      SENSITIVITY_FLOW
+    /
+  /
+END
+
+SUBSURFACE
+
+
+#=========================== discretization ===================================
+GRID
+  TYPE UNSTRUCTURED_EXPLICIT ./mesh.h5
+  UPWIND_FRACTION_METHOD CELL_VOLUME
+  DOMAIN_FILENAME ./mesh_Domain.h5
+END
+
+REGION BC
+  FILE ./BC.ex
+END
+REGION Pit
+  FILE ./Pit.vs
+END
+
+
+#=========================== EOS ===================================
+EOS WATER
+  #simplified value for hydraulic conductivity computation
+  DENSITY CONSTANT 997.16d0 kg/m^3
+  VISCOSITY CONSTANT 8.904156d-4 Pa-s
+END
+
+
+#=========================== material properties ==============================
+DATASET permeability
+  FILENAME permeability.h5
+END
+
+MATERIAL_PROPERTY mater
+  ID 1
+  SATURATION_FUNCTION default
+  POROSITY 0.3
+  PERMEABILITY
+    DATASET permeability
+  /
+END
+
+MATERIAL_PROPERTY rock
+  ID 2
+  SATURATION_FUNCTION default
+  POROSITY 0.1
+  PERMEABILITY
+    PERM_ISO 1e-14
+  /
+END
+
+
+#=========================== characteristic curves ============================
+CHARACTERISTIC_CURVES default
+  DEFAULT
+END
+
+
+#=========================== output options ===================================
+OUTPUT
+  FORMAT HDF5
+  VARIABLES
+    FACE_AREA
+    FACE_DISTANCE_BETWEEN_CENTER
+    FACE_UPWIND_FRACTION
+    PERMEABILITY_X
+    LIQUID_PRESSURE
+    VOLUME
+    FACE_CELL_CENTER_VECTOR_X
+    FACE_CELL_CENTER_VECTOR_Y
+    FACE_CELL_CENTER_VECTOR_Z
+    X_COORDINATE
+    Y_COORDINATE
+    Z_COORDINATE
+  /
+  SNAPSHOT_FILE
+    PRINT_CONNECTION_IDS
+  /
+  NO_PRINT_INITIAL
+  #NO_PRINT_FINAL
+END
+
+
+#=========================== times ============================================
+TIME
+  FINAL_TIME 50 y
+  INITIAL_TIMESTEP_SIZE 50 y
+  MAXIMUM_TIMESTEP_SIZE 1e3 y
+END
+
+
+
+#=========================== regions ==========================================
+REGION all
+  COORDINATES
+    -1e6 -1e6 -1e6
+    1e6 1e6  1e6
+  /
+END
+
+
+
+#=========================== flow conditions ==================================
+FLOW_CONDITION initial
+  TYPE
+    PRESSURE hydrostatic
+  /
+  DATUM 0 0 100
+  GRADIENT 
+    PRESSURE -0.01 0. 0.
+  /
+  PRESSURE 101325.
+END
+
+
+
+#=========================== condition couplers ===============================
+# initial condition
+INITIAL_CONDITION
+  FLOW_CONDITION initial
+  REGION all
+END
+BOUNDARY_CONDITION BC
+  FLOW_CONDITION initial
+  REGION BC
+END
+
+
+
+#=========================== stratigraphy couplers ============================
+STRATA
+  REGION all
+  MATERIAL rock
+END
+
+STRATA
+  REGION Pit
+  MATERIAL mater
+END
+
+END_SUBSURFACE
+
+
+SENSITIVITY_FLOW
+  SENSITIVITY_OUTPUT_FORMAT HDF5
+  VARIABLES
+    PRESSURE
+    PERMEABILITY
+  /
+  OUTPUT
+    PERIODIC_TIMESTEP 1
+  /
+END
