@@ -53,7 +53,7 @@ Regional head gradient is 0.01 along the x direction.
 The following example showed the evolution of the geometry of the inclusion from the start of the iterative optimization process to the end.
 The mean head gradien in the tailings is being reduced from 3.6e-3 to 2e-5, i.e. a two order of magnitude reduced.
 
-![2D example](https://github.com/MoiseRousseau/TopOpt-inpits-WRI/examples/2D/results.gif)
+![2D example](https://github.com/MoiseRousseau/TopOpt-inpits-WRI/blob/main/examples/2D_pit/results.gif)
 
 
 ### Three-dimensional pit
