@@ -48,10 +48,12 @@ What does the main script do ?
 
 ### Two-dimensional pit
 
-The 2D example consists in a pit backfilled with mine talings of 5e-7 m/s hydraulic conductivity in which the mean head gradient in the tailings is being reduced by wastes rock inclusion 5e-4 m/s hydraulic conductivity that can occupy 20% of the pit volume.
+The 2D example consists in a pit backfilled with contaminated mine talings of 5e-7 m/s hydraulic conductivity.
+The objective is to use highly permeable waste rock inclusion of 5e-4 m/s hydraulic conductivity to create preferential patch in the pit to reduce the mean head gradient in the tailings and thus the groundwater flow through them.
+In this example, wastes rock inclusion  that can occupy 20% of the pit volume.
 Regional head gradient is 0.01 along the x direction.
-The following example showed the evolution of the geometry of the inclusion from the start of the iterative optimization process to the end.
-The mean head gradien in the tailings is being reduced from 3.6e-3 to 2e-5, i.e. a two order of magnitude reduction.
+The following example showed the evolution of the geometry of the inclusion (in red) within the contaminated tailings (in blue) from the start of the iterative optimization process until the end.
+The mean head gradient in the tailings is being reduced from 3.6e-3 to 2e-5, i.e. a two order of magnitude reduction.
 
 ![2D example](https://github.com/MoiseRousseau/TopOpt-inpits-WRI/blob/main/examples/2D_pit/results.gif)
 
@@ -63,9 +65,6 @@ In this case, the backfilled pit is discretized using 48000 Voronoi cells and th
 Mean head gradient is reduced from 4.7e-3 without inclusion to 8.2e-5, i.e. a 60 times reduction.
 
 ![3D example](https://github.com/MoiseRousseau/TopOpt-inpits-WRI/blob/main/examples/3D_pit/results.gif)
-
-
-## Modify the example to run your own topology optimization problem
 
 
 ## Further help
